@@ -1,4 +1,4 @@
-# python-mullvad
+# Python-Mullvad
 Unofficial CLI for the Mullvad VPN - Written with Shell Scripting and Python
 
 1. Pipe available Mullvad relays to a .txt file with
