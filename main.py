@@ -149,7 +149,7 @@ print('Active Cities: ' + str(mvServers['cities']))
 
 
 print('\n--------------------')
-print('Country Stats')
+print(' Servers by Country')
 print('--------------------\n')
 
 for country in sortedCountryList[:9]:
@@ -158,7 +158,7 @@ for country in sortedCountryList[:9]:
 
 
 print('\n--------------------')
-print('City Stats')
+print('  Servers by City')
 print('--------------------\n')
 
 for city in sortedCityList[:9]:
@@ -169,14 +169,14 @@ for city in sortedCityList[:9]:
 
 
 print('\n--------------------')
-print('Individual Stats')
+print(' Connection Status')
 print('--------------------\n')
 
-
-
 statusRn = mullvadStatus()
-print('\nMullvad Connection Status')
-print(statusRn)
+print('Connected: ' + str(statusRn['connected']).title())
+print('Host: ' + str(statusRn['host']))
+print('City: ' + str(statusRn['city']))
+print('Country: ' + str(statusRn['country']))
 
 
 
