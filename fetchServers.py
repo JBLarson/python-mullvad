@@ -35,7 +35,7 @@ def createVpnDict(vpnList):
 
 		if newCountry == True:
 			countryDict = {}
-			cityList, serverList = [], []
+			serverList = []
 
 			print("\nCountry: " + str(vpn))
 
@@ -48,11 +48,6 @@ def createVpnDict(vpnList):
 
 
 		if newCountry == False:
-			cityDict = {}
-
-
-			#print(vpn)
-
 			if newCity == True:
 				citySplit = vpn.split(' ')
 				cityName = citySplit[0].strip()
@@ -61,13 +56,8 @@ def createVpnDict(vpnList):
 				except:	cityCode = None
 
 
-				print('\nCity: ' + str(cityName) + '\n')
-				if cityName not in outputList:
-					cityDict.update({'cityName': cityName})
-					cityDict.update({'cityCode': cityCode})
+				#print('\nCity: ' + str(cityName) + '\n')
 
-				if cityName not in cityList:
-					cityList.append(cityDict)
 
 			if newServer == True:
 				serverDict = {}
@@ -77,29 +67,26 @@ def createVpnDict(vpnList):
 				except:
 					serverName = None
 				try:
-					serverIp = serverSplit[1]
+					serverIp0 = serverSplit[1]
+					serverIp1 = serverIp0.replace('(', '')
+					serverIp2 = serverIp1.replace(')', '')
+					serverIp = serverIp2.replace(',', '')
+
 				except:
 					serverIp = None
-				try:
-					serverProtocol = hostSplit[3]
-					#print(cityCode)
-				except:
-					serverProtocol = None
+
 
 				if serverName not in outputList:
-					serverDict.update({'serverName': serverName})
-					serverDict.update({'serverIp': serverIp})
-					serverDict.update({'serverProtocol': serverProtocol})
+					serverDict.update({'host': serverName})
+					serverDict.update({'hostIp': serverIp})
+					serverDict.update({'cityCode': cityCode})
+					serverDict.update({'city': cityName})
 
 				if serverDict not in serverList:
 					serverList.append(serverDict)
 
-
 				print("\nNew Server: " + str(serverDict))
 
-			#print(cityList)
-
-			countryDict.update({'cities': cityList})
 			countryDict.update({'servers': serverList})
 
 		if countryDict not in outputList:
@@ -107,7 +94,7 @@ def createVpnDict(vpnList):
 	
 
 
-	print('\nCountries in Mullvad List: ' + str(len(outputList)))
+	print('\n' + str(len(outputList)) + ' countries in Mullvad List')
 
 	return outputList
 
