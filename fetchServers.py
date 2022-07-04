@@ -1,14 +1,22 @@
 
 import json
 from pmHelpers import *
+import os
+
 
 # *** FROM CLI ***
-# create a text file with a list of mullvad servers i.e. mullvad relay list >> data/vpns.txt
+# create a text file with a list of mullvad servers i.e. 
+
+
+bashServerCommand = 'mullvad relay list >> data/mullvad.txt'
+
+os.system(bashServerCommand)
+
 
 
 # save the text file to a python list
 currentVpnList = []
-with open('data/vpns.txt') as f:
+with open('data/mullvad.txt') as f:
 	for content in f:
 		currentVpnList.append(content)
 
@@ -50,7 +58,8 @@ def createVpnDict(vpnList):
 		if newCountry == False:
 			if newCity == True:
 				citySplit = vpn.split(' ')
-				cityName = citySplit[0].strip()
+				cityName0 = citySplit[0].strip()
+				cityName = cityName0.replace(',', '')
 
 				try:	cityCode = citySplit[1][1:][:-1]
 				except:	cityCode = None
@@ -113,9 +122,9 @@ finalVpnList = createVpnDict(currentVpnList)
 
 # save structured mullvad data to a json file
 try:
-	writeVpns = writeJson('data/vpns.json', finalVpnList)
+	writeVpns = writeJson('data/mullvad.json', finalVpnList)
 	print(writeVpns)
 except Exception as e:
-	print('\nFailed to write to vpns.json')
+	print('\nFailed to write to mullvad.json')
 	print(e)
 
